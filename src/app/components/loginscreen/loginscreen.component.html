@@ -11,14 +11,19 @@
 <div class="row">
   <div class="mainpage block card col s12 m10 offset-m1">
     <h5 class="page-title">Login</h5>
-    <div id="login-form row">
-      <input type="email" class="col s8 offset-s2 {{email.cssClass}}" id="email-field" placeholder="Email" (blur) = "onEmailBlur($event)">
-      <input type="password" class="col s8 offset-s2" id="password-field" placeholder="Password" (input) = "onPasswordInput($event)">
-      <span class="errormsg col s8 offset-s2" *ngIf="email.status == 1">{{email.errorMsg}}</span>
-      <span class="errormsg col s8 offset-s2" *ngIf="password.status == 1">{{password.errorMsg}}</span>
-      <a class="waves-effect waves-light btn col s2 offset-s2 blue login-btn disabled" *ngIf="email.status != 2 || password.status != 2" >login</a>
-      <a class="waves-effect waves-light btn col s2 offset-s2 blue login-btn" *ngIf="email.status == 2 && password.status == 2" id="login-btn">login</a>
-      {{bla}}
+    <div >
+      <form class="login-form row">
+        <input type="email" class="{{email.cssClass}} col s8 offset-s2" id="email-field" placeholder="Email" (blur) = "onEmailBlur($event)" [(ngModel)] = "email.value" [ngModelOptions]="{standalone: true}">
+        <input type="password" class="col s8 offset-s2" id="password-field" placeholder="Password" (input) = "onPasswordInput($event)" [(ngModel)] = "password.value" [ngModelOptions]="{standalone: true}">
+        <span class="errormsg col s8 offset-s2" *ngIf="email.status == 1">{{email.errorMsg}}</span>
+        <span class="errormsg col s8 offset-s2" *ngIf="password.status == 1">{{password.errorMsg}}</span>
+
+        <!-- Disabled button -->
+        <a class="waves-effect waves-light btn col s2 offset-s2 blue login-btn disabled" *ngIf="email.status != 2 || password.status != 2" >login</a>
+
+        <!-- Enabled button -->
+        <a class="waves-effect waves-light btn col s2 offset-s2 blue login-btn" *ngIf="email.status == 2 && password.status == 2" id="login-btn" (click) = "submitLogin()">login</a>
+      </form>
     </div>
   </div>
 </div>

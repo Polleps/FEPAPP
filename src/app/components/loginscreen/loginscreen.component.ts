@@ -6,26 +6,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loginscreen.component.css']
 })
 export class LoginscreenComponent implements OnInit {
-  // emailClass: string = "";
-  // emailStatus: number = 0;
-  // emailErrormsg: string = "";
-  // passwordClass: string = "";
-  // passwordStatus: number = 0;
-  // password
+  
   email: RequiredFormField = {
+    value: "",
     cssClass: "",
     status: 0,
     errorMsg: ""
   }
   password: RequiredFormField = {
+    value: "",
     cssClass: "",
     status: 0,
     errorMsg: ""
   }
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  submitLogin(){
+    //TODO: Voeg firebase login dingen toe
+    //De value van email en password krijg je met: this.email.value en this.password.value
+
+
   }
+
   onEmailBlur(event: any){
     //value is een valid email
     if(this.validateEmail(event.target.value)){
@@ -61,11 +65,13 @@ export class LoginscreenComponent implements OnInit {
     
   }
   validateEmail(email) {
+    //Check of de email aan alle requirements voldoet
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 }
 interface RequiredFormField {
+  value: string,
   cssClass: string,
   status: number,
   errorMsg: string
