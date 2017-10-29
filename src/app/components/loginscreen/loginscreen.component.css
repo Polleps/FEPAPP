@@ -1,3 +1,6 @@
-#login-btn {
+.login-btn {
     margin-bottom: 100px;
+}
+.errormsg {
+    color: red;
 }
