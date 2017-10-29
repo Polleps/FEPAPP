@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database-deprecated";
 
 @Component({
   selector: 'app-loginscreen',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loginscreen.component.css']
 })
 export class LoginscreenComponent implements OnInit {
+ 
   
   email: RequiredFormField = {
     value: "",
@@ -19,16 +21,25 @@ export class LoginscreenComponent implements OnInit {
     status: 0,
     errorMsg: ""
   }
-  constructor() { }
+  constructor(private af: AngularFireDatabase) {}
 
-  ngOnInit() {}
+  
+  ngOnInit(){}
 
+  getUsers(){
+    return this.af.list('/accounts');
+  }
   submitLogin(){
     //TODO: Voeg firebase login dingen toe
     //De value van email en password krijg je met: this.email.value en this.password.value
+    for(let i in this.getUsers()){
+      if (i[0] == this.email.value && i[1] == this.password.value){
+        return true;
+      }
+    }    
+  };
 
 
-  }
 
   onEmailBlur(event: any){
     //value is een valid email
