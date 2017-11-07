@@ -1,11 +1,6 @@
-<nav>
-  <div class="nav-wrapper blue">
-    <a href="#" class="brand-logo center ">Hardware Reserveren</a>
-  </div>
-</nav>
 <div class="page row">
   <div class="table-holder col s12 l10 offset-l1 card">
-    <table class="highlight">
+    <table class="highlight bordered">
         <thead>
             <tr>
                 <th>Naam</th>
@@ -27,6 +22,7 @@
             </tr>    
           </tbody>
     </table>
+    
   </div>
   <div class="row">
       <div class="description-holder card col s12 l8 offset-l1">
@@ -34,8 +30,17 @@
       </div>
       <div class="calendar-holder card col s12 l2">
           <input type="date" placeholder="Datum" (input)="checkDate($event)" [(ngModel)]="selectedDate">
-          <a class="waves-effect waves-light btn blue disabled" *ngIf="selected == null || selectedDate == ''">Reserveren</a>
-          <a class="waves-effect waves-light btn blue" (click)="submitReservering()" *ngIf="selected != null && selectedDate != ''">Reserveren</a>
+          <div class="section">
+              <a class="waves-effect waves-light btn blue disabled" *ngIf="selected == null || selectedDate == ''">Reserveren</a>
+              <a class="waves-effect waves-light btn blue" (click)="submitReservering()" *ngIf="selected != null && selectedDate != ''">Reserveren</a>
+          </div>
+          
+          <div class="divider" *ngIf="userIsAdmin == true"></div>
+          <div class="section" *ngIf="userIsAdmin == true">
+              <a class="waves-effect waves-light btn">Toevoegen</a>
+          </div>
+          
       </div>
   </div>
+  
 </div>

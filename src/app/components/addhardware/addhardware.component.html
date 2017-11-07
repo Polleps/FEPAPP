@@ -1,0 +1,30 @@
+<div class="page row">
+  <div class="card col s12 l8 offset-l2">
+    <h5 class="center-align">Hardware Toevoegen</h5>
+    <form>
+      <div class="container row">
+        <div class="input-field col s12">
+          <input type="text" id="naam" class="validate" [(ngModel)]="naam" name="naam">
+          <label for="naam">Naam</label>
+        </div>
+        <div class="input-field col s12">
+            <textarea id="beschrijving" class="materialize-textarea" [(ngModel)]="beschrijving" name="beschrijving"></textarea>
+            <label for="beschrijving">Beschrijving</label>
+        </div>
+        <div class="input-field col s12 l6">
+          <input type="number" id="aantal" min="1" [(ngModel)]="aantal" name="aantal">
+          <label for="aantal">Aantal</label>
+        </div>
+        <div class="button-holder col s12">
+            <button class="btn waves-effect waves-light blue" type="submit" name="action" (click)="toevoegen()">Toevoegen
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+        <div class="col s12 error-msg">
+            {{errorMsg}}
+          </div>
+      </div>
+      
+    </form>
+  </div>
+</div>

@@ -6,16 +6,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hardwarelist.component.css']
 })
 export class HardwarelistComponent implements OnInit {
+  //Lijst van alle hardware die uit de database komt
   hardware: Hardware[] = [];
+
+  //Variablen die gebruikt worden in de UI logica0
   description: string;
   selected: number;
   selectedDate: string = '';
+
+  //Variable die er voor zorgt dat studenten de toevoeg knop niet te zien krijgen.
   userIsAdmin: boolean;
+
   constructor() {
-    this.userIsAdmin = true;
+    
   }
 
   ngOnInit() {
+    //Hier moet een check komen of de user een student of docent is.
+    this.userIsAdmin = true;
+
     this.initofzo();
   }
   initofzo(): void {
@@ -24,6 +33,11 @@ export class HardwarelistComponent implements OnInit {
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "1 2 3 4 5", aantal: 10, beschikbaar: 8});
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "Je moeder is een plopkoek", aantal: 10, beschikbaar: 2});
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
+    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
+    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
+    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
+    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
+    
   }
   setDesc(index: number): void{
     this.description = this.hardware[index].beschrijving;
@@ -35,6 +49,7 @@ export class HardwarelistComponent implements OnInit {
 
   }
   submitReservering(): void{
+    //Validate de selectie en update de database:
     alert("WOWOWOWOWOW JIJ KLIKT OP RESERVEREN!!!")
   }
 }
