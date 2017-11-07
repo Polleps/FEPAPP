@@ -4,11 +4,13 @@ import { FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginscreenComponent } from '../app/components/loginscreen/loginscreen.component';
+import { HardwarelistComponent } from '../app/components/hardwarelist/hardwarelist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginscreenComponent
+    LoginscreenComponent,
+    HardwarelistComponent
   ],
   imports: [
     BrowserModule,
