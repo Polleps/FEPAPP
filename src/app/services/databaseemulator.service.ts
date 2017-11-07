@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 @Injectable()
 export class DatabaseemulatorService {
   private users: User[] = [
@@ -23,7 +22,7 @@ export class DatabaseemulatorService {
     }
    }
 
-  public query(db, query): any {
+  public query(db: string, query: any): any {
     return new Promise((resolve, reject) => {
       if(this.scheme[db] == null){
         reject("Database bestaat niet.");
@@ -41,8 +40,9 @@ export class DatabaseemulatorService {
     });
   }
 
-  public insert(db, object): boolean {
+  public insert(db: string, object: any, generateId: boolean): boolean {
     if(this.scheme[db] == null) return false;
+    if(generateId) object.id = Math.floor(Math.random() * 1000000000000).toString();
     this.scheme[db].push(object);
     return true;
   }

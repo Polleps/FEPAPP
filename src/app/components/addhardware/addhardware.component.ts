@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { DatabaseemulatorService} from '../../services/databaseemulator.service';
+
 @Component({
   selector: 'app-addhardware',
   templateUrl: './addhardware.component.html',
@@ -10,7 +12,7 @@ export class AddhardwareComponent implements OnInit {
   beschrijving: string = "";
   aantal: number = 1;
   errorMsg: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private database: DatabaseemulatorService) { }
 
   ngOnInit() { }
 
@@ -22,8 +24,9 @@ export class AddhardwareComponent implements OnInit {
     }
     this.errorMsg = "";
     //Database dingen hier:
-
+    //Math.random is een simpele maar slechte manier om id's te genereren omdat de uuid module niet werkte
+    let res = this.database.insert("hardware", {naam: this.naam, beschrijving: this.beschrijving, aantal: this.aantal, beschikbaar: this.aantal}, true);
     //Redirect:
-    this.router.navigate(["list"]);
+    if(res) this.router.navigate(["list"]);
   }
 }

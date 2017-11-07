@@ -10,7 +10,7 @@ export class HardwarelistComponent implements OnInit {
   //Lijst van alle hardware die uit de database komt
   hardware: Hardware[] = [];
 
-  //Variablen die gebruikt worden in de UI logica0
+  //Variablen die gebruikt worden in de UI logica
   description: string;
   selected: number;
   selectedDate: string = '';
@@ -42,10 +42,9 @@ export class HardwarelistComponent implements OnInit {
   checkDate(event: any): void{
     //Hier checken of de datum al bezet is
     //Value krijg je met event.target.value
-    var x = new Date(event.target.value);
-    var y = new Date(Date.now());
-    
-    if(x <= y){
+
+    //Checkt of de datum niet voor de huidige datum is
+    if(new Date(event.target.value) <= new Date(Date.now())){
       this.dateErrorMsg = "Dit is geen geldige datum";
       event.target.value = "";
       this.selectedDate = "";
