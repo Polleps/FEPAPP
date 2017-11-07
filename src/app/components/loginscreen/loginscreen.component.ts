@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DatabaseemulatorService} from '../../services/databaseemulator.service';
 @Component({
   selector: 'app-loginscreen',
   templateUrl: './loginscreen.component.html',
@@ -19,16 +20,21 @@ export class LoginscreenComponent implements OnInit {
     status: 0,
     errorMsg: ""
   }
-  constructor(private router: Router) { }
+  constructor(private router: Router, private database: DatabaseemulatorService) { }
 
   ngOnInit() {}
 
   submitLogin(){
     //TODO: Voeg firebase login dingen toe
     //De value van email en password krijg je met: this.email.value en this.password.value
-
-    //Redirect naar /list als alles klopt:
-    this.router.navigate(["list"]);
+    this.database.query("users", user => user.email === this.email.value && user.password === this.password.value).then(res => {
+      //Redirect naar /list als alles klopt:
+      console.log("dingdong")
+      this.router.navigate(["list"]);
+    }).catch(err => {
+      console.log(err)
+    });
+    
   }
 
   onEmailBlur(event: any){

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginscreenComponent } from '../app/components/loginscreen/loginscreen.component';
 import { HardwarelistComponent } from '../app/components/hardwarelist/hardwarelist.component';
 import { AddhardwareComponent } from '../app/components/addhardware/addhardware.component';
-
+import { DatabaseemulatorService} from '../app/services/databaseemulator.service';
 const appRoutes: Routes = [
   {path: '', component: LoginscreenComponent},
   {path: 'list', component: HardwarelistComponent},
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [DatabaseemulatorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
