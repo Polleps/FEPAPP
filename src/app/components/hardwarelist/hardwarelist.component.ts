@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseemulatorService} from '../../services/databaseemulator.service';
 
 @Component({
   selector: 'app-hardwarelist',
@@ -17,7 +18,7 @@ export class HardwarelistComponent implements OnInit {
   //Variable die er voor zorgt dat studenten de toevoeg knop niet te zien krijgen.
   userIsAdmin: boolean;
 
-  constructor() {
+  constructor(private database: DatabaseemulatorService) {
     
   }
 
@@ -25,10 +26,10 @@ export class HardwarelistComponent implements OnInit {
     //Hier moet een check komen of de user een student of docent is.
     this.userIsAdmin = true;
 
-    this.initofzo();
+    this.fetchHardware();
   }
-  initofzo(): void {
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Ik ben een ding", aantal: 10, beschikbaar: 2});
+  fetchHardware(): void {
+    /* this.hardware.push({naam: "Raspberry Pi", beschrijving: "Ik ben een ding", aantal: 10, beschikbaar: 2});
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "Bla bla bla", aantal: 10, beschikbaar: 6});
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "1 2 3 4 5", aantal: 10, beschikbaar: 8});
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "Je moeder is een plopkoek", aantal: 10, beschikbaar: 2});
@@ -36,8 +37,12 @@ export class HardwarelistComponent implements OnInit {
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
     this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
+    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9}); */
     
+
+    this.database.query("hardware", h => {return true;}).then(result =>{
+      this.hardware = result;
+    }).catch(err => console.log(err));
   }
   setDesc(index: number): void{
     this.description = this.hardware[index].beschrijving;

@@ -6,7 +6,13 @@ export class DatabaseemulatorService {
     {email: "admin@admin.admin", password: "admin", isAdmin: true},
     {email: "geen@admin.rip", password: "wachtwoord123", isAdmin: false}
   ];
-  private hardware: Hardware[] = [];
+  private hardware: Hardware[] = [
+    {id: "87293847293749283742893749284", naam: "Raspberry Pi", beschrijving: "Een kleine computer.", aantal: 10, beschikbaar: 9},
+    {id: "83489237498273498723498242947", naam: "Arduino", beschrijving: "Ook een kleine computer.", aantal: 234, beschikbaar: 100},
+    {id: "23489723487247938747324729873", naam: "Korg SH-101", beschrijving: "Een super coole synthesizer.", aantal: 4, beschikbaar: 4},
+    {id: "13598775834598775435793882774", naam: "Oculus Rift DK2", beschrijving: "VR bril met googley eyes er op van Rik Jansen.", aantal: 1, beschikbaar: 0},
+    {id: "09876543212345678909876543212", naam: "Laptop uit het jaar nul", beschrijving: "Nog slechter dan een raspberry Pi, waarschijnlijk draaien hier de HU servers op.", aantal: 16, beschikbaar: 10}
+  ];
   private reserveringen: Reservering[] = [];
   private scheme = {};
   constructor() {
