@@ -1,0 +1,13 @@
+.table-holder {
+    height: 450px;
+    overflow: auto;
+}
+.description-holder {
+    height: 300px;
+}
+.calendar-holder {
+    height: 300px;
+}
+.selected-row{
+    font-weight: bold;
+}

@@ -1,45 +1,41 @@
 <nav>
   <div class="nav-wrapper blue">
     <a href="#" class="brand-logo center ">Hardware Reserveren</a>
-    <!-- <ul id="nav-mobile" class="left hide-on-med-and-down">
-      <li><a href="sass.html">Sass</a></li>
-      <li><a href="badges.html">Components</a></li>
-      <li><a href="collapsible.html">JavaScript</a></li>
-    </ul> -->
   </div>
 </nav>
 <div class="page row">
-  <div class="table-holder col s10 offset-s1 card">
-    <table class="striped">
+  <div class="table-holder col s12 l10 offset-l1 card">
+    <table class="highlight">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Item Name</th>
-                <th>Item Price</th>
+                <th>Naam</th>
+                <th>Aantal</th>
+                <th>Aantal beschikbaar</th>
             </tr>
           </thead>
   
           <tbody>
-            <tr>
-              <td>Alvin</td>
-              <td>Eclair</td>
-              <td>$0.87</td>
-            </tr>
-            <tr>
-              <td>Alan</td>
-              <td>Jellybean</td>
-              <td>$3.76</td>
-            </tr>
-            <tr>
-              <td>Jonathan</td>
-              <td>Lollipop</td>
-              <td>$7.00</td>
-            </tr>
+            <tr *ngFor="let h of hardware; index as i" (click)="setDesc(i)" id="{{i}}">
+              <td>
+                <span *ngIf="selected == i" class = "selected-row">{{h.naam}}</span>
+                <span *ngIf="selected != i">{{h.naam}}</span>
+              </td>
+              <td><span *ngIf="selected == i" class = "selected-row">{{h.aantal}}</span>
+                <span *ngIf="selected != i">{{h.aantal}}</span></td>
+              <td><span *ngIf="selected == i" class = "selected-row">{{h.beschikbaar}}</span>
+                <span *ngIf="selected != i">{{h.beschikbaar}}</span></td>
+            </tr>    
           </tbody>
     </table>
   </div>
-  <div class="description">
-
+  <div class="row">
+      <div class="description-holder card col s12 l8 offset-l1">
+        {{description}}
+      </div>
+      <div class="calendar-holder card col s12 l2">
+          <input type="date" placeholder="Datum" (input)="checkDate($event)" [(ngModel)]="selectedDate">
+          <a class="waves-effect waves-light btn blue disabled" *ngIf="selected == null || selectedDate == ''">Reserveren</a>
+          <a class="waves-effect waves-light btn blue" (click)="submitReservering()" *ngIf="selected != null && selectedDate != ''">Reserveren</a>
+      </div>
   </div>
-  <div class="calendar"></div>
 </div>
