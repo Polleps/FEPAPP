@@ -29,17 +29,8 @@ export class HardwarelistComponent implements OnInit {
     this.fetchHardware();
   }
   fetchHardware(): void {
-    /* this.hardware.push({naam: "Raspberry Pi", beschrijving: "Ik ben een ding", aantal: 10, beschikbaar: 2});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Bla bla bla", aantal: 10, beschikbaar: 6});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "1 2 3 4 5", aantal: 10, beschikbaar: 8});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Je moeder is een plopkoek", aantal: 10, beschikbaar: 2});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9});
-    this.hardware.push({naam: "Raspberry Pi", beschrijving: "Aha", aantal: 10, beschikbaar: 9}); */
-    
-
+    //Vervanging voor Firebase
+    //met return true krijg ik alles terug
     this.database.query("hardware", h => {return true;}).then(result =>{
       this.hardware = result;
     }).catch(err => console.log(err));
@@ -64,7 +55,7 @@ export class HardwarelistComponent implements OnInit {
   }
   submitReservering(): void{
     //Validate de selectie en update de database:
-    alert("WOWOWOWOWOW JIJ KLIKT OP RESERVEREN!!!")
+    
   }
 }
 
