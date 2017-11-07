@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-addhardware',
   templateUrl: './addhardware.component.html',
@@ -10,7 +10,7 @@ export class AddhardwareComponent implements OnInit {
   beschrijving: string = "";
   aantal: number = 1;
   errorMsg: string;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() { }
 
@@ -24,6 +24,6 @@ export class AddhardwareComponent implements OnInit {
     //Database dingen hier:
 
     //Redirect:
-
+    this.router.navigate(["list"]);
   }
 }

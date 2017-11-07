@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-loginscreen',
   templateUrl: './loginscreen.component.html',
@@ -19,7 +19,7 @@ export class LoginscreenComponent implements OnInit {
     status: 0,
     errorMsg: ""
   }
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
 
@@ -27,7 +27,8 @@ export class LoginscreenComponent implements OnInit {
     //TODO: Voeg firebase login dingen toe
     //De value van email en password krijg je met: this.email.value en this.password.value
 
-
+    //Redirect naar /list als alles klopt:
+    this.router.navigate(["list"]);
   }
 
   onEmailBlur(event: any){
