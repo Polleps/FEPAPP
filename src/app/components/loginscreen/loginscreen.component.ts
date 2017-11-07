@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database-deprecated";
 
+
 @Component({
   selector: 'app-loginscreen',
   templateUrl: './loginscreen.component.html',
