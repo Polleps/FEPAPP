@@ -13,7 +13,7 @@ export class HardwarelistComponent implements OnInit {
   description: string;
   selected: number;
   selectedDate: string = '';
-
+  dateErrorMsg: string = '';
   //Variable die er voor zorgt dat studenten de toevoeg knop niet te zien krijgen.
   userIsAdmin: boolean;
 
@@ -46,7 +46,16 @@ export class HardwarelistComponent implements OnInit {
   checkDate(event: any): void{
     //Hier checken of de datum al bezet is
     //Value krijg je met event.target.value
-
+    var x = new Date(event.target.value);
+    var y = new Date(Date.now());
+    
+    if(x <= y){
+      this.dateErrorMsg = "Dit is geen geldige datum";
+      event.target.value = "";
+      this.selectedDate = "";
+      return;
+    }
+    this.dateErrorMsg = "";
   }
   submitReservering(): void{
     //Validate de selectie en update de database:

@@ -30,6 +30,7 @@
       </div>
       <div class="calendar-holder card col s12 l2">
           <input type="date" placeholder="Datum" (input)="checkDate($event)" [(ngModel)]="selectedDate">
+          <div class="error-msg">{{dateErrorMsg}}</div>
           <div class="section">
               <a class="waves-effect waves-light btn blue disabled" *ngIf="selected == null || selectedDate == ''">Reserveren</a>
               <a class="waves-effect waves-light btn blue" (click)="submitReservering()" *ngIf="selected != null && selectedDate != ''">Reserveren</a>
