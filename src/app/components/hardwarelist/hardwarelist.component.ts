@@ -7,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HardwarelistComponent implements OnInit {
   hardware: Hardware[] = [];
+
   description: string;
   selected: number;
-  selectedDate: string = '';
+  selectedDate: Date;
   userIsAdmin: boolean;
+  
   constructor() {
     this.userIsAdmin = true;
   }
@@ -30,8 +32,13 @@ export class HardwarelistComponent implements OnInit {
     this.selected = index;
   }
   checkDate(event: any): void{
-    //Hier checken of de datum al bezet is
-    //Value krijg je met event.target.value
+    var x = new Date(event.target.value);
+    var y = new Date(Date.now());
+    
+    if(x <= y){
+      alert("Please choose a different date.");
+      event.target.value = "";
+    }
 
   }
   submitReservering(): void{
