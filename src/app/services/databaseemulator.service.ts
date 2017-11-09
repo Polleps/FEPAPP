@@ -98,11 +98,19 @@ export class DatabaseemulatorService {
     this.collectionScheme[db].add(object);
     return true;
   }
-
-  public update(db, query, object): boolean {
-    //update function is niet nodig;
-    return false;
-  }
+  public addReservering(hardwareId: string, datum: string): boolean{
+    let rHardware = this.query('hardware', x => x.id === hardwareId).catch("Hardware Bestaat niet");
+    let reserveringOpDatum = this.query('reserveringen', x => x.hardware_id === hardwareId && x.datum === datum).catch("Reservering niet gevonden");
+    if(rHardware.aantal - reserveringOpDatum.length == 0) return false;
+    this.insert('reserveringen', {
+      hardware_id: hardwareId,
+      user_id: this.loggedInUser.email,
+      aantal: 1,
+      datum: datum
+    }, true);
+    return true;
+  } 
+  
 }
 
 interface User {

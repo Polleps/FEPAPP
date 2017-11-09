@@ -16,6 +16,7 @@ export class HardwarelistComponent implements OnInit {
   selected: number;
   selectedDate: string = '';
   dateErrorMsg: string = '';
+  successMsg: string = '';
   //Variable die er voor zorgt dat studenten de toevoeg knop niet te zien krijgen.
   userIsAdmin: boolean;
 
@@ -52,14 +53,22 @@ export class HardwarelistComponent implements OnInit {
       return;
     }
     this.dateErrorMsg = "";
+    this.hardware.forEach(h =>{
+      this.database.query('reserveringen', x => x.hardware_id === h.id && x.datum === event.target.value).then(result =>{
+        h.beschikbaar = h.aantal - result.length;
+      }).catch(err => {
+        h.beschikbaar = h.aantal;
+      });
+    });
   }
   submitReservering(): void{ 
     //Validate de selectie en update de database:
-    
+    if(this.database.addReservering(this.hardware[this.selected].id, this.selectedDate)) this.successMsg = "Hardware Gereserveerd."
   }
 }
 
 interface Hardware {
+  id: string,
   naam: string,
   beschrijving: string,
   aantal: number,

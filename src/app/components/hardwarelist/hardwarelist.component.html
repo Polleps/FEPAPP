@@ -16,9 +16,14 @@
                 <span *ngIf="selected != i">{{h.naam}}</span>
               </td>
               <td><span *ngIf="selected == i" class = "selected-row">{{h.aantal}}</span>
+                <span *ngIf="selected != i">{{h.aantal}}</span>
+              <span *ngIf="selected == i" class = "selected-row">{{h.aantal}}</span>
                 <span *ngIf="selected != i">{{h.aantal}}</span></td>
-              <td><span *ngIf="selected == i" class = "selected-row">{{h.beschikbaar}}</span>
-                <span *ngIf="selected != i">{{h.beschikbaar}}</span></td>
+              <td><span *ngIf="selected == i && selectedDate === ''" class = "selected-row">-</span>
+                <span *ngIf="selected != i && selectedDate === ''">-</span>
+                <span *ngIf="selected == i && selectedDate !== ''" class = "selected-row">{{h.beschikbaar}}</span>
+                <span *ngIf="selected != i && selectedDate !== ''">{{h.beschikbaar}}</span>
+              </td>
             </tr>    
           </tbody>
     </table>
@@ -31,6 +36,7 @@
       <div class="calendar-holder card col s12 l2">
           <input type="date" placeholder="Datum" (input)="checkDate($event)" [(ngModel)]="selectedDate">
           <div class="error-msg">{{dateErrorMsg}}</div>
+          <div class="success-msg">{{successMsg}}</div>
           <div class="section">
               <a class="waves-effect waves-light btn blue disabled" *ngIf="selected == null || selectedDate == ''">Reserveren</a>
               <a class="waves-effect waves-light btn blue" (click)="submitReservering()" *ngIf="selected != null && selectedDate != ''">Reserveren</a>

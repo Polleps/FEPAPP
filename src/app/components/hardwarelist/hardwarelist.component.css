@@ -11,3 +11,6 @@
 .selected-row{
     font-weight: bold;
 }
+.success-msg {
+    color: green;
+}
