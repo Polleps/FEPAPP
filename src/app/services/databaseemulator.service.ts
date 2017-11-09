@@ -1,4 +1,11 @@
 import { Injectable } from '@angular/core';
+
+//firebase dingen
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+
 @Injectable()
 export class DatabaseemulatorService {
   private users: User[] = [
@@ -14,15 +21,28 @@ export class DatabaseemulatorService {
   ];
   private reserveringen: Reservering[] = [];
   private scheme = {};
+  private collectionScheme = {};
   private loggedInUser: User;
-  constructor() {
+  private usersCollection: AngularFirestoreCollection<User>;
+  private hardwareCollection: AngularFirestoreCollection<Hardware>;
+  private reserveringCollection: AngularFirestoreCollection<Reservering>;
+  
+  constructor(private afs: AngularFirestore) {
     this.scheme = {
       users: this.users,
       hardware: this.hardware,
       reserveringen: this.reserveringen
     }
+    this.collectionScheme = {
+      users: this.usersCollection,
+      hardware: this.hardwareCollection,
+      reserveringen: this.reserveringCollection
+    }
+    this.fetchUsers();
+    this.fetchHardware();
+    this.fetchReserveringen();
    }
-
+  
   public query(db: string, query: any): any {
     return new Promise((resolve, reject) => {
       if(this.scheme[db] == null){
@@ -43,17 +63,39 @@ export class DatabaseemulatorService {
   public isLoggedIn(): boolean {
     return this.loggedInUser != null;
   }
+
   public userIsAdmin(): boolean {
     return this.loggedInUser.isAdmin;
   }
+
+  private fetchReserveringen(): void {
+    this.collectionScheme['reserveringen'] = this.afs.collection('reservering');
+    let collection$: Observable<Reservering[]> = this.collectionScheme['reserveringen'].valueChanges();
+    collection$.subscribe(data => this.scheme['reserveringen'] = data);
+  }
+
+  private fetchHardware(): void {
+    this.collectionScheme['hardware'] = this.afs.collection('hardware');
+    let collection$: Observable<Hardware[]> = this.collectionScheme['hardware'].valueChanges();
+    collection$.subscribe(data => this.scheme['hardware'] = data);
+  }
+
+  private fetchUsers(): void {
+    this.collectionScheme['users'] = this.afs.collection('users');
+    let collection$: Observable<User[]> = this.collectionScheme['users'].valueChanges();
+    collection$.subscribe(data => this.scheme['users'] = data);
+  }
+  
   public authenticate(email: string, password: string){
     this.loggedInUser = this.scheme["users"].find(u => u.email === email && password === password);
+    console.log(this.scheme['users']);
     return this.loggedInUser != null;
   }
   public insert(db: string, object: any, generateId: boolean): boolean {
-    if(this.scheme[db] == null) return false;
+    if(this.collectionScheme[db] == null) return false;
     if(generateId) object.id = Math.floor(Math.random() * 1000000000000).toString();
     this.scheme[db].push(object);
+    this.collectionScheme[db].add(object);
     return true;
   }
 

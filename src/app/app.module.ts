@@ -10,11 +10,24 @@ import { AddhardwareComponent } from '../app/components/addhardware/addhardware.
 import { DatabaseemulatorService} from '../app/services/databaseemulator.service';
 import { ToevoegGuardService } from '../app/services/toevoeg-guard.service';
 import { LoggedinGuardService } from '../app/services/loggedin-guard.service';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 const appRoutes: Routes = [
   {path: '', component: LoginscreenComponent},
   {path: 'list', component: HardwarelistComponent, canActivate: [LoggedinGuardService]},
   {path: 'toevoegen', component: AddhardwareComponent, canActivate: [ToevoegGuardService]}
 ]
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCukmE_Lq8Fv3m4BxJD-c9_MfuhxUJqKZ4",
+  authDomain: "testapp-f9d2d.firebaseapp.com",
+  databaseURL: "https://testapp-f9d2d.firebaseio.com",
+  projectId: "testapp-f9d2d",
+  storageBucket: "testapp-f9d2d.appspot.com",
+  messagingSenderId: "817299676821"
+};
 
 @NgModule({
   declarations: [
@@ -26,7 +39,9 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
   ],
   providers: [DatabaseemulatorService, ToevoegGuardService, LoggedinGuardService],
   bootstrap: [AppComponent]
