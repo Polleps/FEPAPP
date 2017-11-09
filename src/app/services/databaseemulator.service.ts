@@ -91,17 +91,21 @@ export class DatabaseemulatorService {
     console.log(this.scheme['users']);
     return this.loggedInUser != null;
   }
-  public insert(db: string, object: any, generateId: boolean): boolean {
+  public insert(db: string, object: any, generateId: boolean, callback = null): boolean {
     if(this.collectionScheme[db] == null) return false;
     if(generateId) object.id = Math.floor(Math.random() * 1000000000000).toString();
     this.scheme[db].push(object);
     this.collectionScheme[db].add(object);
+    this.fetchUsers();
+    this.fetchHardware();
+    this.fetchReserveringen();
+    if(callback) callback();
     return true;
   }
   public addReservering(hardwareId: string, datum: string): boolean{
     let rHardware = this.query('hardware', x => x.id === hardwareId).catch("Hardware Bestaat niet");
     let reserveringOpDatum = this.query('reserveringen', x => x.hardware_id === hardwareId && x.datum === datum).catch("Reservering niet gevonden");
-    if(rHardware.aantal - reserveringOpDatum.length == 0) return false;
+    if(rHardware.aantal - reserveringOpDatum.length <= 0) return false;
     this.insert('reserveringen', {
       hardware_id: hardwareId,
       user_id: this.loggedInUser.email,

@@ -53,17 +53,23 @@ export class HardwarelistComponent implements OnInit {
       return;
     }
     this.dateErrorMsg = "";
+    this.calculateBeschikbaar();
+  }
+  calculateBeschikbaar():void {
     this.hardware.forEach(h =>{
-      this.database.query('reserveringen', x => x.hardware_id === h.id && x.datum === event.target.value).then(result =>{
+      this.database.query('reserveringen', x => x.hardware_id === h.id && x.datum === this.selectedDate).then(result =>{
         h.beschikbaar = h.aantal - result.length;
       }).catch(err => {
         h.beschikbaar = h.aantal;
+        console.log(err);
       });
     });
   }
   submitReservering(): void{ 
     //Validate de selectie en update de database:
     if(this.database.addReservering(this.hardware[this.selected].id, this.selectedDate)) this.successMsg = "Hardware Gereserveerd."
+    this.fetchHardware();
+    this.calculateBeschikbaar();
   }
 }
 
