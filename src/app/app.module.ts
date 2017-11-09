@@ -8,10 +8,12 @@ import { LoginscreenComponent } from '../app/components/loginscreen/loginscreen.
 import { HardwarelistComponent } from '../app/components/hardwarelist/hardwarelist.component';
 import { AddhardwareComponent } from '../app/components/addhardware/addhardware.component';
 import { DatabaseemulatorService} from '../app/services/databaseemulator.service';
+import { ToevoegGuardService } from '../app/services/toevoeg-guard.service';
+import { LoggedinGuardService } from '../app/services/loggedin-guard.service';
 const appRoutes: Routes = [
   {path: '', component: LoginscreenComponent},
-  {path: 'list', component: HardwarelistComponent},
-  {path: 'toevoegen', component: AddhardwareComponent}
+  {path: 'list', component: HardwarelistComponent, canActivate: [LoggedinGuardService]},
+  {path: 'toevoegen', component: AddhardwareComponent, canActivate: [ToevoegGuardService]}
 ]
 
 @NgModule({
@@ -26,7 +28,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [DatabaseemulatorService],
+  providers: [DatabaseemulatorService, ToevoegGuardService, LoggedinGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

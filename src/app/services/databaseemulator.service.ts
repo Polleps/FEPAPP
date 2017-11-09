@@ -14,6 +14,7 @@ export class DatabaseemulatorService {
   ];
   private reserveringen: Reservering[] = [];
   private scheme = {};
+  private loggedInUser: User;
   constructor() {
     this.scheme = {
       users: this.users,
@@ -39,7 +40,16 @@ export class DatabaseemulatorService {
       }
     });
   }
-
+  public isLoggedIn(): boolean {
+    return this.loggedInUser != null;
+  }
+  public userIsAdmin(): boolean {
+    return this.loggedInUser.isAdmin;
+  }
+  public authenticate(email: string, password: string){
+    this.loggedInUser = this.scheme["users"].find(u => u.email === email && password === password);
+    return this.loggedInUser != null;
+  }
   public insert(db: string, object: any, generateId: boolean): boolean {
     if(this.scheme[db] == null) return false;
     if(generateId) object.id = Math.floor(Math.random() * 1000000000000).toString();

@@ -20,6 +20,7 @@ export class LoginscreenComponent implements OnInit {
     status: 0,
     errorMsg: ""
   }
+  authfailText: string = "";
   constructor(private router: Router, private database: DatabaseemulatorService) { }
 
   ngOnInit() {}
@@ -28,13 +29,19 @@ export class LoginscreenComponent implements OnInit {
     //TODO: Voeg firebase login dingen toe
     //De value van email en password krijg je met: this.email.value en this.password.value
     //Er wordt hier gebruik gemaakt van een snel in elkaar gezette database emulatie todat firebase functionaliteit kan worden toegevoegd.
-    this.database.query("users", user => user.email === this.email.value && user.password === this.password.value).then(res => {
-      //Redirect naar /list als alles klopt:
-      console.log("dingdong")
+    // this.database.query("users", user => user.email === this.email.value && user.password === this.password.value).then(res => {
+    //   //Redirect naar /list als alles klopt:
+    //   console.log("dingdong")
+    //   this.router.navigate(["list"]);
+    // }).catch(err => {
+    //   console.log(err)
+    // });
+    if(this.database.authenticate(this.email.value, this.password.value)){
       this.router.navigate(["list"]);
-    }).catch(err => {
-      console.log(err)
-    });
+    }
+    else{
+      this.authfailText = "Email of Wachtwoord klopt niet";
+    }
     
   }
 

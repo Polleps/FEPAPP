@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 import { DatabaseemulatorService} from '../../services/databaseemulator.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class HardwarelistComponent implements OnInit {
 
   ngOnInit() {
     //Hier moet een check komen of de user een student of docent is.
-    this.userIsAdmin = true;
+    this.userIsAdmin = this.database.userIsAdmin();
 
     this.fetchHardware();
   }
@@ -52,7 +53,7 @@ export class HardwarelistComponent implements OnInit {
     }
     this.dateErrorMsg = "";
   }
-  submitReservering(): void{
+  submitReservering(): void{ 
     //Validate de selectie en update de database:
     
   }

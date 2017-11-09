@@ -7,12 +7,13 @@
         <input type="password" class="col s8 offset-s2" id="password-field" placeholder="Password" (input) = "onPasswordInput($event)" [(ngModel)] = "password.value" [ngModelOptions]="{standalone: true}">
         <span class="errormsg col s8 offset-s2" *ngIf="email.status == 1">{{email.errorMsg}}</span>
         <span class="errormsg col s8 offset-s2" *ngIf="password.status == 1">{{password.errorMsg}}</span>
-
+        <span *ngIf="authfailText !== ''" class=" col s10 offset-s2 error-msg">{{authfailText}}</span>
         <!-- Disabled button -->
         <a class="waves-effect waves-light btn col s2 offset-s2 blue login-btn disabled" *ngIf="email.status != 2 || password.status != 2" >login</a>
 
         <!-- Enabled button -->
         <a class="waves-effect waves-light btn col s2 offset-s2 blue login-btn" *ngIf="email.status == 2 && password.status == 2" id="login-btn" (click) = "submitLogin()">login</a>
+        
       </form>
     </div>
   </div>
